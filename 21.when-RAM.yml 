@@ -1,0 +1,8 @@
+- name: gather OS family
+  hosts: all
+  tasks:
+    - name: deply dialog if RAM is more than 4GB - 4096mb
+      dnf:
+        name: httpd
+        state: latest
+      when: ansible_memtotal_mb > 4096

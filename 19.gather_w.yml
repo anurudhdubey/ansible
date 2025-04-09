@@ -1,0 +1,8 @@
+- name: gather OS family
+  hosts: all
+  tasks:
+    - name: get OS family
+      debug:
+        msg: "The OS family is {{ ansible_facts.os_family }}"
+        msg: "The OS memory is {{ ansible_facts.memtotal_mb }}"
+        msg: "The OS machin is {{ ansible_facts.machine }}"
