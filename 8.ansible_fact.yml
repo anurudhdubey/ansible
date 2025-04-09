@@ -1,0 +1,16 @@
+- name: user default facts
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: gather all facts
+      setup:
+    - name: display custom facts
+      debug:
+        msg:
+          - "the department is {{ ansible_local.myown.custom_fact.department }}"
+          - "the location is {{ ansible_local.myown.custom_fact.location }}"
+    - name: install dialog in finance dept systems only
+      dnf:
+        name: dialog
+        state: latest
+      when: ansible_local.myown.custom_fact.department == "Finance" #deploy http only in finance depart

@@ -1,0 +1,22 @@
+- name: create group and user accounts
+  hosts: webservers
+  vars:
+    users:
+      - it11
+      - 1t12
+      - it13
+  tasks:
+    - name: create group
+      group:
+        name: itadmins
+        state: present
+    - name: create users
+      user:
+        name: "{{ item }}"
+        state: present
+        groups: itadmins
+      loop: "{{ users }}"
+        #- it2
+        #- it3
+        #- it4
+  

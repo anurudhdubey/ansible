@@ -1,0 +1,26 @@
+- name: ansible play for test variables its priority
+  hosts: webservers
+  gather_facts: false
+  #vars_files:
+  #        - /path/11varfile.txt
+  vars:
+    - v1: "value1"
+    - v2: "httpd"
+    - v4: "test4"
+    - v5: "value55"
+  tasks:
+    - name: using debug mosule to test variables
+      debug:
+        msg:
+          - "this variable is taken from {{ v1 }}"
+          - "this var from {{ v2 }}"
+          - "this value is from {{ v4 }}"
+          - "this is from v5 {{ v5 }}"
+
+    - name: task2 variable @task level
+      vars:
+        - v1: "taskvar1111"
+      debug:
+        msg:
+          - "this value is from {{ v1 }}"
+          - "this is from {{ v2 }}"

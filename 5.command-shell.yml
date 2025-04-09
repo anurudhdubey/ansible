@@ -1,0 +1,20 @@
+- name: check diff between command / shell module
+  hosts: dc
+  tasks:
+    - name: get up time
+      command: uptime
+      register: uptime_output
+    # - name: get ip add 
+    #   command: ip ad sh | grep 10.0.
+    - name: use shell module
+      shell: "ip ad sh | grep 10.0."
+      register: ip_add
+    - name: use debug module
+      ansible.builtin.debug:
+        var: uptime_output
+    - name: use debug module
+      ansible.builtin.debug:
+        #var: uptime_output
+        msg: 
+        - "the uptime is {{ uptime_output.stdout }}"
+        - "IP is {{ip_add.stdout}}"

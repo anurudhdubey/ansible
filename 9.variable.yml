@@ -1,0 +1,8 @@
+- name: install package using variable
+  hosts: webservers
+  tasks:
+    - name: T1-install {{ pack1 }}
+      dnf:
+        name: "{{ pack1 }}"
+        state: latest
+    

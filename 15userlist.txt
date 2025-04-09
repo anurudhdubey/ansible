@@ -1,0 +1,10 @@
+- un: it31
+    ucomment: itadmin31
+    ushell: /bin/sh
+- un: it32
+    ucomment: itadminhead
+    ushell: /bin/zsh
+- un: it33
+    ucomment: itops1
+    ushell: /bin/bash
+    

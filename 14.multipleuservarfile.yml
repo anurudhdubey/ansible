@@ -1,0 +1,24 @@
+- name: create group and user accounts
+  hosts: webservers
+  vars_files:
+    - 14userlist.txt
+   # - 14userlist2.txt #comment out if 2nd userlist not available
+    #vars:
+      #users:
+      #  - it11
+      #  - 1t12
+      #  - it13
+  tasks:
+    - name: create group
+      group:
+        name: itadmins
+        state: present
+    - name: create users
+      user:
+        name: "{{ item }}"
+        state: present
+        groups: itadmins
+      loop: "{{ users }}"
+        #- it2
+        #- it3
+        #- it4

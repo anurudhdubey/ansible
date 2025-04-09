@@ -1,0 +1,33 @@
+- name: install and configure homepage and start web service
+  hosts: webservers
+  tasks:
+    - name: T1-install httpd
+      dnf:
+        name: httpd
+        state: latest
+    - name: T2-copy/create homepage index.html
+      copy:
+        content: "Welcome web server installed --ANurudh Dubey"
+        dest: /var/www/html/index.html
+    - name: T3-start https service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+    - name: T4-open firewall ports for web service
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        immediate: yes
+        state: enabled
+- name: Play 2  check website reachability
+  hosts: localhost
+  gather_facts: False
+  become: False
+  tasks:
+    - name: Test nodal website
+      uri:
+        url: http://node1.example.com
+        return_content: yes
+        status_code:
+          - 200   

@@ -1,0 +1,8 @@
+- name: install web server package
+  hosts: webservers
+  tasks:
+    - name: install httpd using yum module
+      ansible.builtin.dnf:
+        name: httpd
+        state: absent
+

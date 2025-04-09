@@ -1,0 +1,14 @@
+- name: play1 for test node reacheability
+  hosts: all
+  tasks:
+    - name: use ping module
+      ping:
+
+- name: play2 with only web systems
+  hosts: webservers
+  tasks:
+    - name: get uptime
+      command: "uptime"
+    
+    - name: get user id used
+      command: "id"

@@ -1,0 +1,15 @@
+- name: Module to gather facts
+  hosts: dc
+  gather_facts: False
+  tasks:
+    - name :  use setup module to gather facts
+      setup:
+      register: serverinfo
+    - name: use debug to print serverinfo
+      debug:
+        #var: serverinfo
+        msg: 
+        - "the ip address of the target host {{ serverinfo.ansible_facts.ansible_all_ipv4_addresses }}"
+        - "the ip address of the target host {{ serverinfo.ansible_facts.ansible_architecture }}"
+        - "the ip address of the target host {{ serverinfo.ansible_facts.ansible_distribution }}"
+  

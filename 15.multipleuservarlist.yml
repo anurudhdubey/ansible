@@ -1,0 +1,27 @@
+- name: create group and user accounts
+  hosts: webservers
+  vars_files:
+    - 15userlist.txt
+      #- 14userlist2.txt
+    #vars:
+      #users:
+      #  - it11
+      #  - 1t12
+      #  - it13
+  tasks:
+    - name: create group
+      group:
+        name: itadmins
+        state: present
+    - name: create users
+      user:
+        name: "{{ item.un }}"
+        comment: "{{ item.ucomment }}"
+        shell: "{{ item.ushell }}"
+        state: present
+        groups: itadmins
+      loop: "{{ users }}"
+        #- it2
+        #- it3
+        #- it4
+    

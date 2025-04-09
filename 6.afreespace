@@ -1,0 +1,12 @@
+- name: Get Free mem and save in /tmp
+  hosts: dc
+  tasks:
+    - name: free space command
+      shell: "free -h >> /tmp/free_memory.txt"
+      register: mem
+    - name: use debug
+      ansible.builtin.debug:
+        var: mem
+    - name: use debug
+      ansible.builtin.debug:
+        msg: "The mem save is done {{mem.stdout}}"

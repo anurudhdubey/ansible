@@ -1,0 +1,5 @@
+- name: Create fact
+  host: webserver
+  tasks:
+    - name: mkdir
+      command: "mkdir -p /etc/etc/ansible/facts.d"

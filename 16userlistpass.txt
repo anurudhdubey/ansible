@@ -1,0 +1,14 @@
+users:
+  - un: it51
+    ucomment: itadmin51
+    ushell: /bin/sh
+    upass: redhat
+  - un: it52
+    ucomment: itadminhead
+    ushell: /bin/zsh
+    upass: redhat
+  - un: it53
+    ucomment: itops1
+    ushell: /bin/bash
+    upass: admin@123
+
