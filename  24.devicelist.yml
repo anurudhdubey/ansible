@@ -1,0 +1,22 @@
+---
+- name: Count Linux Hardware Objects from Ansible Facts
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Debug full block device list (for verification)
+      debug:
+        var: ansible_facts.devices
+
+    - name: Count number of block devices
+      set_fact:
+        block_device_count: "{{ ansible_devices | dict2items | length }}"
+
+    - name: Show block device count
+      debug:
+        msg: "Total block devices found: {{ block_device_count }}"
+
+    # - name: Optional - Write count to file (on remote)
+    #   copy:
+    #     content: "Block device count: {{ block_device_count }}\n"
+    #     dest: "/tmp/block_device_count.txt"

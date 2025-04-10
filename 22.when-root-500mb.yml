@@ -1,0 +1,9 @@
+- name: gather OS family
+  hosts: all
+  tasks:
+    - name: deply dialog if / mount more than  500mb
+      dnf:
+        name: dialog
+        state: latest
+      loop: "{{ ansible_mounts }}"
+      when: item.mount == "/" and item.size_available > 500000 #and ansible_memtotal_mb > 4096
