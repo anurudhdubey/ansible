@@ -1,0 +1,12 @@
+- name: copy paste in the same remote host
+  hosts: dc
+  tasks:
+    - name: src from /tmp/diskfree.txt to /mnt 
+      copy: 
+        src: /tmp/diskfree.txt #by default from master node
+        dest: /mnt
+        remote_src: yes #get from target host src path to dest
+    - name: copy from master to target nodes
+      copy:
+        src: newinv.txt
+        dest: /tmp/newinv.txt

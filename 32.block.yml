@@ -1,0 +1,26 @@
+- name: play book for block demo
+  hosts: dc
+  tasks:
+    - block:
+        - name: install httpd
+          yum:
+            name: httpd
+            state: latest
+        - name: source content from a web server/site
+          get_url:
+            url: "http://10.0.5.1:8080/source.html"
+            dest: "/var/www/html/index.html"
+          register: download_result
+          until: download_result is succeeded
+          retries: 3
+          delay: 4
+      rescue:
+        - name: rescue - if source not ready
+          copy:
+            content: "src failed - creatingsome content"
+            dest: "/var/www/html/index.html"
+      always:
+        - name: always - start service
+          service:
+            name: httpd
+            state: started

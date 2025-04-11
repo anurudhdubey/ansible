@@ -1,0 +1,13 @@
+---
+- name: Fail if CPU cores are less than required
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Check CPU core count
+      debug:
+        msg: "CPU cores available: {{ ansible_processor_cores * ansible_processor_count }}"
+    - name: Fail if system has less than 2 CPU cores
+      fail:
+        msg: "This host has insufficient CPU cores. Minimum 4 required."
+      when: (ansible_processor_cores * ansible_processor_count) < 4

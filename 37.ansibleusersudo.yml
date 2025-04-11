@@ -1,0 +1,12 @@
+- name: create ansibleuser
+  hosts: dc
+  tasks:
+    - name: create ansible user
+      user:
+        name: ansibleuser
+        state: present
+        
+    - name: add ansible user to /etc/sudoers.d/admins
+      lineinfile:
+        path: /etc/sudoers.d/admins
+        line: "ansibleuser ALL=(ALL) NOPASSWD: ALL"

@@ -1,0 +1,15 @@
+- name: web app deploy using block
+  hosts: dc
+  tasks:
+    - name: deploy web app
+      block:
+        #execute as per plan
+        - name: t1-install web app
+        - name: t2-copy "file"
+        - name: t3-starts servide
+        - name: t4-start firewall
+      rescue:
+        - name: r1-delete copied filed t2-copy
+        - name: r2-reset firewall
+      always:
+        - name: report status

@@ -1,0 +1,24 @@
+- name: insert a block of lines in a http.conf
+  hosts: dc
+  tasks:
+    - name: t1 - install httpd
+      yum:
+        name: httpd
+        state: latest
+    - name: test block in file
+      blockinfile:
+        path: /etc/httpd/conf/httpd.conf
+        block: |
+          #This block inserted ansible admin
+          #using block in file
+          #testing line1
+        backup: yes
+    - name: lineinfile
+      ansible.builtin.lineinfile:
+        path: /etc/motd
+        line: "This server being managed with Ansible IAC"
+    - name: lineinfile find and replace
+      ansible.builtin.lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        line: ServerAdmin admin@tcs.com
+        regexp: "^ServerAdmin*"
