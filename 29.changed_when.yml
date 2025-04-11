@@ -1,0 +1,8 @@
+- name: changed when playbook
+  hosts: node2.example.com
+  tasks:
+    - name: command exec
+      command: "sh /bin/usercreation.sh"
+      register: ucout
+      changed_when: "'user creation success' in ucout.stdout "
+      failed_when: "'user creation failed' in ucout.stdout "

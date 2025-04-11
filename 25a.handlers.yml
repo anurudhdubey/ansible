@@ -1,0 +1,14 @@
+- name: play 1 - reload httpd service if new user created in the play - Handlers
+  hosts: dc
+  tasks:
+    - name: create user
+      user :
+        name: "new_user"
+        state: present
+      notify: reload_user
+  handlers:
+    - name: reload_user
+      service:
+        name: httpd
+        state: reloaded
+        enabled: true

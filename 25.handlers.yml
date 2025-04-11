@@ -1,0 +1,48 @@
+- name: play 1 - install and configure homepage and start web service - Handlers
+  hosts: dc
+  tasks:
+    - name: T1-install httpd
+      dnf:
+        name: httpd
+        state: latest
+    - name: T2-copy/create homepage index.html
+      copy:
+        content: "Welcome web server installed using ANSIBLE change222"
+        dest: /var/www/html/index.html
+      notify: reload_httpd
+    - name: T3-open firewall ports for web service
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        immediate: yes
+        state: enabled
+    - name: T4 - install another app
+      dnf:
+        name: dialog
+        state: present
+    - name: T5 - create web user
+      user:
+        name: webuser
+        state: present
+    # - name: T6-start httpd service
+    #   ansible.builtin.service:
+    #     name: httpd
+    #     state: started
+    #     enabled: true
+    # - name: get uptime
+    #   command: uptime
+    #   notify: info_del
+  handlers:
+    - name: reload_httpd
+      service:
+        name: httpd
+        state: reloaded
+        enabled: true
+    - name: reload_mariadb
+      ansible.builtin.service:
+        name: mariadb-server
+        state: reloaded
+    - name: info_del
+      copy:
+        content: "file got deleted"
+        dest: /tmp/info.txt

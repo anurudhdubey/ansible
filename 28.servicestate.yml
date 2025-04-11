@@ -1,0 +1,19 @@
+- name: play 1 - check https status & start
+  hosts: dc
+  #force_handlers: yes
+  #ignore_errors: true
+  tasks:
+    # - name: start httpd
+    #   service:
+    #     name: httpd
+    #     state: started
+    - name: gather httpd service status
+      shell: systemctl status httpd
+      register: http_status
+      ignore_errors: yes
+    - name: use debug
+      debug:
+        var: http_status
+    - name: start httpd if inactive
+      shell: systemctl start httpd.service
+      when: "'inactive' in http_status.stdout"
