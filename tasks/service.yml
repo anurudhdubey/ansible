@@ -1,0 +1,5 @@
+- name: T3-start https service
+  ansible.builtin.service:
+    name: "{{ pkg }}"
+    state: started
+    enabled: true

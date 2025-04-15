@@ -1,0 +1,6 @@
+- name: T4-open firewall ports for web service
+  ansible.posix.firewalld:
+     service: http 
+     permanent: true
+     immediate: yes
+     state: enabled

@@ -1,0 +1,7 @@
+- name: T2-copy/create homepage index.html
+  # copy:
+  #   content: "Welcome web server {{ pkg }} installed using ANSIBLE"
+  #   dest: /var/www/html/index.html
+  template:
+    src: /home/student/prod/tasks/homepage.j2
+    dest: /var/www/html/index.html

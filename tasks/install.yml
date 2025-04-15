@@ -1,0 +1,5 @@
+- name: "T1-install {{ pkg }}"
+  dnf:
+    name: "{{ pkg }}"
+    state: latest
+

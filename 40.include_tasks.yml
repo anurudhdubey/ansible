@@ -1,0 +1,18 @@
+- name: include tasks - install and configure homepage and start web service
+  hosts: dc
+  vars:
+    pkg: httpd
+  tasks:
+    - name: install dialog
+      dnf:
+        name: dialog
+        state: present
+    - name: inlude tasks in tasks/install.yml
+      ansible.builtin.include_tasks: tasks/install.yml
+      when: ansible_os_family == "RedHat"
+    - name: inclue HP 
+      ansible.builtin.include_tasks: tasks/homepage.yml
+    - name: start service 
+      ansible.builtin.include_tasks: tasks/service.yml
+    - name: open firewall for http 
+      ansible.builtin.include_tasks: tasks/firewall.yml
