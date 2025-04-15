@@ -1,0 +1,8 @@
+- name: create msg using jinja2 templates
+  hosts: dc
+  tasks:
+    - name: create motd message
+      template:
+        dest: /etc/motd
+        src: motd.j2
+    
