@@ -1,0 +1,17 @@
+- name: create ansibleuser
+  hosts: dc
+  tasks:
+    - name: create ansible user
+      user:
+        name: ansibleuser
+        state: present
+        
+    - name: add ansible user to /etc/sudoers.d/admins
+      lineinfile:
+        path: /etc/sudoers.d/admins
+        line: "ansibleuser ALL=(ALL) NOPASSWD: ALL"
+    - name: make keybased auth enabled by copying id_rsa.pub
+      authorized_key:
+        user: ansibleuser
+        key: "{{ lookup('file','/home/student/.ssh/id_rsa.pub') }}"
+        state: present

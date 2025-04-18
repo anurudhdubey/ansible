@@ -1,0 +1,25 @@
+- name: create a new 2gb partition mount as /accounts
+  hosts: node1.example.com
+  tasks:
+    - name: create partition
+      parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+        part_start: 0%
+        part_end: 2GiB
+    - name: format filesystem
+      filesystem:
+        fstype: ext4
+        dev: /dev/sdb1
+        force: yes
+      ignore_errors: 1
+    #- name: create a folder
+
+    - name: mount partition in that folder
+      mount:
+        path: /accounts
+        src: /dev/sdb1
+        state: mounted
+        fstype: ext4
+ 
